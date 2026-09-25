@@ -1,0 +1,11 @@
+{
+  "ignorePatterns": [
+    {"pattern": "https://github.com/your-org/agentic-engineering-skills/*"},
+    {"pattern": "mailto:*"}
+  ],
+  "replacementPatterns": [
+    {"pattern": "your-org", "replacement": "your-org"}
+  ],
+  "aliveStatusCodes": [200, 301, 302],
+  "deadStatusCodes": [404, 500]
+}

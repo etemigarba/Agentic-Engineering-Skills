@@ -1,0 +1,45 @@
+{
+  "name": "agentic-engineering-skills",
+  "version": "1.0.0",
+  "description": "33 production-grade, technology-agnostic skills for AI-native software engineering across 6 SDLC stages",
+  "main": "index.js",
+  "scripts": {
+    "install:global": "bash scripts/install-skills.sh --global",
+    "install:project": "bash scripts/install-skills.sh --project",
+    "validate": "python scripts/validate-skills.py",
+    "catalog": "python scripts/generate-catalog.py",
+    "docs:build": "echo 'Documentation build not yet implemented'",
+    "test": "echo 'No tests defined'",
+    "lint": "echo 'No linting defined'"
+  },
+  "keywords": [
+    "agentic-engineering",
+    "claude-code",
+    "opencode",
+    "antigravity",
+    "codex",
+    "skills",
+    "software-engineering",
+    "sdlc",
+    "iso-iec",
+    "ieee",
+    "owasp",
+    "ai-native"
+  ],
+  "author": "Prof. Etemi Joshua Garba",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/agentic-engineering-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/agentic-engineering-skills/issues"
+  },
+  "homepage": "https://github.com/your-org/agentic-engineering-skills#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "python": ">=3.10"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

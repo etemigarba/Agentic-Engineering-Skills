@@ -1,0 +1,105 @@
+name: Skill Validation
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'skills/**'
+      - 'scripts/**'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'skills/**'
+      - 'scripts/**'
+
+jobs:
+  validate:
+    name: Validate Skills
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh scripts/*.py
+
+      - name: Validate skill structure
+        run: python scripts/validate-skills.py
+
+      - name: Generate catalog
+        run: python scripts/generate-catalog.py
+
+      - name: Check for catalog changes
+        run: |
+          if git diff --quiet SKILL_CATALOG.md; then
+            echo "Catalog is up to date"
+          else
+            echo "Catalog has changes - please regenerate"
+            git diff SKILL_CATALOG.md
+            exit 1
+          fi
+
+  test-install:
+    name: Test Installation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Test global install
+        run: |
+          ./scripts/install-skills.sh --global --target-dir /tmp/test-skills-global
+          ls -la /tmp/test-skills-global/skills/
+
+      - name: Test project install
+        run: |
+          mkdir -p /tmp/test-project
+          cd /tmp/test-project
+          git init
+          /github/workspace/scripts/install-skills.sh --project --target-dir /tmp/test-project/.claude/skills/agentic-engineering-skills
+          ls -la /tmp/test-project/.claude/skills/agentic-engineering-skills/skills/
+
+  docs:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required docs exist
+        run: |
+          required_docs=(
+            "README.md"
+            "LICENSE"
+            "CONTRIBUTING.md"
+            "CODE_OF_CONDUCT.md"
+            "CHANGELOG.md"
+            "SECURITY.md"
+            "docs/getting-started.md"
+            "docs/skill-reference.md"
+            "docs/invocation-guide.md"
+            "docs/standards-alignment.md"
+            "docs/categories/analysis.md"
+            "docs/categories/design.md"
+            "docs/categories/development.md"
+            "docs/categories/validation-verification.md"
+            "docs/categories/testing-qa.md"
+            "docs/categories/deployment.md"
+          )
+          for doc in "${required_docs[@]}"; do
+            if [[ ! -f "$doc" ]]; then
+              echo "Missing required doc: $doc"
+              exit 1
+            fi
+          done
+          echo "All required documentation present"
+
+      - name: Check markdown links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          config-file: '.markdown-link-check.json'
