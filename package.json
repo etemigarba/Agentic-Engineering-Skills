@@ -1,6 +1,6 @@
 {
   "name": "agentic-engineering-skills",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "33 production-grade, technology-agnostic skills for AI-native software engineering across 6 SDLC stages",
   "main": "index.js",
   "scripts": {

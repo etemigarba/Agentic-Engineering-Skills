@@ -7,12 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Initial repository structure with 33 skills across 6 categories
-- MIT License (c) 2026 Prof. Etemi Joshua Garba
-- Installation and validation scripts
-- Documentation framework
-- Example project structure
+### Changed
+- Standardized all 33 skill bundles to uniform structure:
+  - `SKILL.md` (role, context, task, pitfalls, format, clarifying questions)
+  - `assets/output-format.md` (examples & response format from prompt)
+  - `scripts/verify_artefact.py` (universal deliverable validator; path, bytes, word, heading, table, equation counts; house-style phrases; unfinished-work markers)
+- Replaced per-skill skeleton files (`assets/{skill}-skeleton.md`, `references/section-requirements.md`, `scripts/check_{skill}.py`) with shared standard library
+- All skill invocations (`/skill-name`) and auto-discovery behavior unchanged
+
+## [1.0.1] - 2026-10-01
+
+### Changed
+- Standardized all 33 skill bundles to uniform structure:
+  - `SKILL.md` (role, context, task, pitfalls, format, clarifying questions)
+  - `assets/output-format.md` (examples & response format from prompt)
+  - `scripts/verify_artefact.py` (universal deliverable validator; path, bytes, word, heading, table, equation counts; house-style phrases; unfinished-work markers)
+- Replaced per-skill skeleton files (`assets/{skill}-skeleton.md`, `references/section-requirements.md`, `scripts/check_{skill}.py`) with shared standard library
+- All skill invocations (`/skill-name`) and auto-discovery behavior unchanged
+
+### Validation
+- All 33 skills pass `scripts/validate-skills.py`
+- `SKILL_CATALOG.md` regenerated successfully (content identical; README.md preserved)
 
 ## [1.0.0] - 2026-09-25
 
